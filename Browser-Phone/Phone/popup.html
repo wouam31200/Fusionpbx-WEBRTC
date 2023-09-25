@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Browser Phone (Popup)</title>
+        <meta name="description" content="Browser Phone is a fully featured browser based WebRTC SIP phone for Asterisk. Designed to work with Asterisk PBX. It will connect to Asterisk PBX via web socket, and register an extension.  Calls are made between contacts, and a full call detail is saved. Audio and Video Calls can be recorded locally.">
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Expires" content="0"/>
+
+        <link rel="icon" href="favicon.ico">
+
+        <!-- You Ouwn Scripts -->
+        <link rel="stylesheet" type="text/css" href="https://dtd6jl0d42sve.cloudfront.net/lib/jquery/jquery-ui.min.css"/>
+        <style>
+            body{
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            p{
+                text-align: center;
+            }
+            .ui-dialog .ui-dialog-content{
+                padding: 0px !important;
+                overflow: hidden !important;
+            }
+        </style>
+        <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/jquery/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="https://dtd6jl0d42sve.cloudfront.net/lib/jquery/jquery-ui.min.js"></script>
+        <script lang="javascript">
+            function OpenAsWindow(){
+                let windowObj = null;
+                let width = 400;
+                let height = 700;
+
+                if(windowObj != null){
+                    windowObj.dialog("close");
+                    windowObj = null;
+                }
+
+                var iframe = $('<iframe/>');
+                iframe.css("width", "100%");
+                iframe.css("height", "100%");
+                iframe.attr("frameborder", "0");
+                iframe.attr("src", "index.html");
+
+                // Create Window
+                windowObj = $('<div/>').html(iframe).dialog({
+                    autoOpen: false,
+                    title: "Browser Phone",
+                    modal: true,
+                    width: width,
+                    height: height,
+                    resizable: true,
+                    close: function(event, ui) {
+                        $(this).dialog("destroy");
+                        windowObj = null;
+                    }
+                });
+
+                windowObj.dialog("open");
+
+                var windowWidth = $(window).outerWidth();
+                var windowHeight = $(window).outerHeight();
+                var offsetTextHeight = windowObj.parent().outerHeight();
+
+                windowObj.parent().css('left', windowWidth/2 - width/2 + 'px');
+                windowObj.parent().css('top', windowHeight/2 - offsetTextHeight/2 + 'px');
+
+                if(windowWidth <= width) {
+                    windowObj.parent().css('left', '0px');
+                } 
+                if(windowHeight <= offsetTextHeight) {
+                    windowObj.parent().css('top', '0px');
+                }
+
+            }
+        </script>
+    </head>
+
+    <body>
+        <div id=content>
+            <p>This is a sample of how the phone can be loaded into you own web site.</p>
+            <p>
+              <button onclick="OpenAsWindow()">Open As Window</button>
+            </p>
+        </div>
+    </body>
+</html>
